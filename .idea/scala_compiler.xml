@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ScalaCompilerConfiguration">
+    <profile name="sbt 1" modules="computer_systems_assignment_3_1106" />
+    <profile name="sbt 2" modules="computer_systems_assignment_3">
+      <parameters>
+        <parameter value="-Xsource:2.11" />
+      </parameters>
+    </profile>
+  </component>
+</project>

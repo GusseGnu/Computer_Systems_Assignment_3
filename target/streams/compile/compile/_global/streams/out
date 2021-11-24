@@ -1,2 +1,4 @@
-[0m[[0m[33mwarn[0m] [0m[0mthere were 59 feature warnings; re-run with -feature for details[0m
-[0m[[0m[33mwarn[0m] [0m[0mone warning found[0m
+[debug] Acquiring lock on file C:\Users\Aleksandar\Computer_Systems_Assignment_3\project\target\.sbt-compilation-infos\computer_systems_assignment_3-compile\.sbt-idea-lock ...
+[warn] there were 24 feature warnings; re-run with -feature for details
+[warn] one warning found
+[debug] Releasing lock on file C:\Users\Aleksandar\Computer_Systems_Assignment_3\project\target\.sbt-compilation-infos\computer_systems_assignment_3-compile\.sbt-idea-lock.

@@ -57,6 +57,7 @@ class Hello extends Module {
 
     is(read) {
       dataMemory.io.address := addressReg
+      // inverts the pixel
       dataReg := Cat(0.U(24.W), ~dataMemory.io.dataRead(7,0))
       stateReg := write
     }

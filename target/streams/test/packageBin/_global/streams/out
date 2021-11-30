@@ -1,1 +1,15 @@
-[debug] Jar uptodate: C:\Users\Aleksandar\Computer_Systems_Assignment_3\target\scala-2.12\computer_systems_assignment_3_2.12-0.1.0-SNAPSHOT-tests.jar
+[debug] Packaging C:\Users\Aleksandar\Computer_Systems_Assignment_3\target\scala-2.12\computer_systems_assignment_3_2.12-0.1.0-SNAPSHOT-tests.jar ...
+[debug] Input file mappings:
+[debug] 	HelloTester$.class
+[debug] 	  C:\Users\Aleksandar\Computer_Systems_Assignment_3\target\scala-2.12\test-classes\HelloTester$.class
+[debug] 	HelloTester.class
+[debug] 	  C:\Users\Aleksandar\Computer_Systems_Assignment_3\target\scala-2.12\test-classes\HelloTester.class
+[debug] 	Images$.class
+[debug] 	  C:\Users\Aleksandar\Computer_Systems_Assignment_3\target\scala-2.12\test-classes\Images$.class
+[debug] 	Images.class
+[debug] 	  C:\Users\Aleksandar\Computer_Systems_Assignment_3\target\scala-2.12\test-classes\Images.class
+[debug] 	SystemTopTester$.class
+[debug] 	  C:\Users\Aleksandar\Computer_Systems_Assignment_3\target\scala-2.12\test-classes\SystemTopTester$.class
+[debug] 	SystemTopTester.class
+[debug] 	  C:\Users\Aleksandar\Computer_Systems_Assignment_3\target\scala-2.12\test-classes\SystemTopTester.class
+[debug] Done packaging.

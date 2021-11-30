@@ -20,8 +20,7 @@ class Accelerator extends Module {
   //Support registers
   val addressReg = RegInit(0.U(16.W))
   val dataReg = RegInit(0.U(32.W))
-  var counter = RegInit(0.U(32.W))
-  var neighbour = RegInit(0.U(32.W))
+  val counter = RegInit(0.U(32.W))
 
   // Default values
   io.writeEnable := false.B
@@ -40,26 +39,21 @@ class Accelerator extends Module {
 
     is(read) {
       io.address := addressReg
-      when(counter === 19.U) {
+      when(counter === 19.U || counter === 0.U) {
         dataReg := 0.U
-        counter := 0.U
         stateReg := write
+      }.otherwise{
+        stateReg := checkBlackPixel
       }
-      when(counter === 0.U) {
-        dataReg := 0.U
-        counter := counter + 1.U
-        stateReg := write
-      }
-      counter := counter + 1.U
-      stateReg := checkBlackPixel
+
     }
 
     is(checkBlackPixel) {
-      // check borders
-      when(addressReg < 20.U || addressReg > 379.U) {
+      // check Top and bottom borders
+      /*when(addressReg < 20.U || addressReg > 379.U) {
         dataReg := 0.U
         stateReg := write
-      }
+      }*/
       // Check if pixel is black
       when(io.dataRead(7, 0) === 0.U) {
         dataReg := 0.U
@@ -71,38 +65,37 @@ class Accelerator extends Module {
 
     is(checkUp) {
       io.address := addressReg - 20.U
-      neighbour := io.dataRead(7, 0)
-      when(neighbour === 0.U) {
+      when(io.dataRead(7, 0) === 0.U) {
         dataReg := 0.U
         stateReg := write
       }.otherwise {
         stateReg := checkDown
       }
     }
+
     is(checkDown) {
       io.address := addressReg + 20.U
-      neighbour := io.dataRead(7, 0)
-      when(neighbour === 0.U) {
+      when(io.dataRead(7, 0) === 0.U) {
         dataReg := 0.U
         stateReg := write
       }.otherwise {
         stateReg := checkLeft
       }
     }
+
     is(checkLeft) {
       io.address := addressReg - 1.U
-      neighbour := io.dataRead(7, 0)
-      when(neighbour === 0.U) {
+      when(io.dataRead(7, 0) === 0.U) {
         dataReg := 0.U
         stateReg := write
       }.otherwise {
         stateReg := checkRight
       }
     }
+
     is(checkRight) {
       io.address := addressReg + 1.U
-      neighbour := io.dataRead(7, 0)
-      when(neighbour === 0.U) {
+      when(io.dataRead(7, 0) === 0.U) {
         dataReg := 0.U
         stateReg := write
       }.otherwise {
@@ -116,7 +109,13 @@ class Accelerator extends Module {
       io.writeEnable := true.B
       // Increment address
       addressReg := addressReg + 1.U(16.W)
-      counter := counter + 1.U(32.W)
+      // Increment counter or jump to 0
+      when(counter === 19.U){
+        counter := 0.U(32.W)
+      }.otherwise{
+        counter := counter + 1.U(32.W)
+      }
+
       when(addressReg === 399.U(16.W)) {
         stateReg := done
       }.otherwise {

@@ -1,2 +1,4 @@
 [debug] Acquiring lock on file C:\Users\Aleksandar\Computer_Systems_Assignment_3\project\target\.sbt-compilation-infos\computer_systems_assignment_3-test\.sbt-idea-lock ...
+[warn] there were 19 feature warnings; re-run with -feature for details
+[warn] one warning found
 [debug] Releasing lock on file C:\Users\Aleksandar\Computer_Systems_Assignment_3\project\target\.sbt-compilation-infos\computer_systems_assignment_3-test\.sbt-idea-lock.

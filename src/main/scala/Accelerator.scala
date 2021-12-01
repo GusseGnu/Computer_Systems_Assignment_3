@@ -14,7 +14,7 @@ class Accelerator extends Module {
   })
 
   //State enum and register
-  val idle :: read :: checkBlackPixel :: checkUp :: checkDown :: checkLeft :: checkRight :: write :: done :: Nil = Enum(9)
+  val idle :: read :: checkUp :: checkDown :: checkLeft :: checkRight :: write :: done :: Nil = Enum(8)
   val stateReg = RegInit(idle)
 
   //Support registers
@@ -39,30 +39,20 @@ class Accelerator extends Module {
 
     is(read) {
       io.address := addressReg
-      when(counter === 19.U || counter === 0.U) {
+      // Check borders from: Up - Down - Left - Right
+      // Check if pixel is black
+      when(addressReg < 20.U || addressReg > 379.U || counter === 19.U || counter === 0.U || io.dataRead(7, 0) === 0.U) {
+        // Pixel is black
         dataReg := 0.U
         stateReg := write
       }.otherwise{
-        stateReg := checkBlackPixel
+        // Pixel is white
+        stateReg := checkUp
       }
-
     }
 
-    is(checkBlackPixel) {
-      // check Top and bottom borders
-      /*when(addressReg < 20.U || addressReg > 379.U) {
-        dataReg := 0.U
-        stateReg := write
-      }*/
-      // Check if pixel is black
-      when(io.dataRead(7, 0) === 0.U) {
-        dataReg := 0.U
-        stateReg := write
-      }
-      // Pixel is white
-      stateReg := checkUp
-    }
-
+    // Check if any neighbour pixels are black
+    // In the order: Up - Down - Left - Right
     is(checkUp) {
       io.address := addressReg - 20.U
       when(io.dataRead(7, 0) === 0.U) {
@@ -109,7 +99,7 @@ class Accelerator extends Module {
       io.writeEnable := true.B
       // Increment address
       addressReg := addressReg + 1.U(16.W)
-      // Increment counter or jump to 0
+      // Increment counter by 1 or reset to 0
       when(counter === 19.U){
         counter := 0.U(32.W)
       }.otherwise{
